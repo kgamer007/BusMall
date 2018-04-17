@@ -1,0 +1,14 @@
+.products-area {
+  width: 450px;
+}
+
+figure {
+  margin: 0;
+  float: left;
+}
+
+figure img {
+  width: 150px;
+  height: 150px;
+}
+
