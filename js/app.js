@@ -3,6 +3,9 @@ console.log('js is linked');
 
 AllImages.all = [];
 
+
+
+
 var userChoosesButton1 = document.getElementById('user-choice-1');
 var userChoosesButton2 = document.getElementById('user-choice-2');
 var userChoosesButton3 = document.getElementById('user-choice-3');
