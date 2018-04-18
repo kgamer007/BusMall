@@ -50,7 +50,6 @@ function randomImages() {
   firstPicture.src = randomImage1.url;
   secondPicture.src = randomImage2.url;
   thirdPicture.src = randomImage3.url;
-
 }
 randomImages();
 
@@ -61,27 +60,40 @@ var randomImage3 = AllImages.all[2];
 
 userChoosesButton1.addEventListener('click', function (e) {
   randomImage1.votes++;
-  pickNewImages();
+  randomImages();
 });
 
 userChoosesButton2.addEventListener('click', function (e) {
   randomImage2.votes++;
-  pickNewImages();
+  randomImages();
 });
 
 userChoosesButton3.addEventListener('click', function (e) {
   randomImage3.votes++;
-  pickNewImages();
+  randomImages();
   console.log(userChoosesButton1);
 });
 
-function pickNewImages() {
-  randomImage1 = AllImages[Math.floor(Math.random() * AllImages.length)];
-  firstPicture.src = randomImage1.url;
 
-  randomImage2 = AllImages[Math.floor(Math.random() * AllImages.length)];
-  secondPicture.src = randomImage2.url;
 
-  randomImage3 = AllImages[Math.floor(Math.random() * AllImages.length)];
-  thirdPicture.src = randomImage3.url;
-}
+
+
+
+
+
+
+
+
+
+
+// *************attempt at randomization***********ignoreplz***
+// function pickNewImages() {
+//   randomImage1 = AllImages[Math.floor(Math.random() * AllImages.length)];
+//   firstPicture.src = randomImage1.url;
+
+//   randomImage2 = AllImages[Math.floor(Math.random() * AllImages.length)];
+//   secondPicture.src = randomImage2.url;
+
+//   randomImage3 = AllImages[Math.floor(Math.random() * AllImages.length)];
+//   thirdPicture.src = randomImage3.url;
+// }
