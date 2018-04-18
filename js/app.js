@@ -1,4 +1,4 @@
-'use stirct';
+'use strict';
 
 console.log('js is linked');
 
@@ -72,6 +72,7 @@ userChoosesButton2.addEventListener('click', function (e) {
 userChoosesButton3.addEventListener('click', function (e) {
   randomImage3.votes++;
   pickNewImages();
+  console.log(userChoosesButton1);
 });
 
 function pickNewImages() {
