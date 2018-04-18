@@ -1,5 +1,4 @@
 'use strict';
-
 console.log('js is linked');
 
 AllImages.all = [];
@@ -7,9 +6,15 @@ AllImages.all = [];
 var userChoosesButton1 = document.getElementById('user-choice-1');
 var userChoosesButton2 = document.getElementById('user-choice-2');
 var userChoosesButton3 = document.getElementById('user-choice-3');
+
 var firstPicture = document.getElementById('firstImage');
 var secondPicture = document.getElementById('secondImage');
 var thirdPicture = document.getElementById('thirdImage');
+
+var showUserResults = document.getElementById('total-results');
+var userNumberOfVotes = 0;
+var previousResults = 0;
+var currentResults = 0;
 
 function AllImages(url, name) {
   this.url = url;
@@ -52,7 +57,7 @@ function randomImages() {
   thirdPicture.src = randomImage3.url;
 }
 randomImages();
-
+//confused but basically we hard code the index and randomize them later
 var randomImage1 = AllImages.all[0];
 var randomImage2 = AllImages.all[1];
 var randomImage3 = AllImages.all[2];
@@ -71,29 +76,22 @@ userChoosesButton2.addEventListener('click', function (e) {
 userChoosesButton3.addEventListener('click', function (e) {
   randomImage3.votes++;
   randomImages();
-  console.log(userChoosesButton1);
+  // console.log(userChoosesButton1);
 });
 
 
+//*************attempt at randomization***********ignoreplz***
+function pickNewImages() {
+  randomImage1 = AllImages[Math.floor(Math.random() * AllImages.length)];
+  firstPicture.src = randomImage1.url;
+  if(userNumberOfVotes === 0){
+    randomImage1 = AllImages.all[Math.floor(Math.random() * AllImages.length)];
+    
+  }
 
+  randomImage2 = AllImages[Math.floor(Math.random() * AllImages.length)];
+  secondPicture.src = randomImage2.url;
 
-
-
-
-
-
-
-
-
-
-// *************attempt at randomization***********ignoreplz***
-// function pickNewImages() {
-//   randomImage1 = AllImages[Math.floor(Math.random() * AllImages.length)];
-//   firstPicture.src = randomImage1.url;
-
-//   randomImage2 = AllImages[Math.floor(Math.random() * AllImages.length)];
-//   secondPicture.src = randomImage2.url;
-
-//   randomImage3 = AllImages[Math.floor(Math.random() * AllImages.length)];
-//   thirdPicture.src = randomImage3.url;
-// }
+  randomImage3 = AllImages[Math.floor(Math.random() * AllImages.length)];
+  thirdPicture.src = randomImage3.url;
+}
