@@ -6,30 +6,48 @@
   <title>Bus Mall</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
+<header>
+  <nav>
+    <ul>
+      <li>Home</li>
+      <li>About Us</li>
+      <li>Merchandise</li>
+      <li>Contact Us</li>
+    </ul>
+  </nav>
+  <div id="logo">
+    <img src="img/bus.png" />
+  </div>
+  <div id="instructions">
+    <h1 class="instructions-text">Thank you so much for participating in our study!<br />Please select your favorite product image from the three choices displayed.  <br />There will be 25 selections, you will be shown the results of your survey!</h1>
+
+  </div>
+</header>
 
 <body>
-  <h1>Hello welcome to the BusMall app. Hope you enjoy!</h1>
-
-  <div class="products-area">
-    <figure>
-      <img id="firstImage" src="" />
-    </figure>
-    <figure>
-      <img id="secondImage" src="" />
-    </figure>
-    <figure>
-      <img id="thirdImage" src="" />
-    </figure>
-  </div>
-
-  <div>
-    <button id="user-choice-1">Choose 1
-    </button>
-    <button id="user-choice-2">Choose 2
-    </button>
-    <button id="user-choice-3">Choose 3
-    </button>
-  </div>
+  <main id="mainElement">
+    <h1>BusMall App.</h1>
+    <h2>Hope you enjoy!</h2>
+    <div class="products-area"></div>
+    <section id="image-section">
+      <figure>
+        <img id="firstImage" src="img/bag.jpg" />
+      </figure>
+      <figure>
+        <img id="secondImage" src="img/banana.jpg" />
+      </figure>
+      <figure>
+        <img id="thirdImage" src="img/bathroom.jpg" />
+      </figure>
+    </section>
+    <button id="user-choice-1">Choose left Image 1</button>
+    <button id="user-choice-2">Choose middle Image 2</button>
+    <button id="user-choice-3">Choose right Image 3</button>
+    <div id="testResults"></div>
+    <button id="total-results">Here are the results</button>
+    <canvas id="resultsChart"></canvas>
+  </main>
+  <footer></footer>
   <script src="js/app.js"></script>
 </body>
 
