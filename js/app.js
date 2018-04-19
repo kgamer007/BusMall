@@ -18,6 +18,7 @@ function AllImages(url, name) {
   this.url = url;
   this.name = name;
   this.votes = 0;
+  this.numOfTimesDisplayed =
   AllImages.all.push(this);
 }
 new AllImages('img/bag.jpg', 'bag');
