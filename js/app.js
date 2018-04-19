@@ -14,11 +14,6 @@ var firstPicture = document.getElementById('firstImage');
 var secondPicture = document.getElementById('secondImage');
 var thirdPicture = document.getElementById('thirdImage');
 
-var showUserResults = document.getElementById('total-results');
-var userNumberOfVotes = 0;
-var previousResults = 0;
-var currentResults = 0;
-
 function AllImages(url, name) {
   this.url = url;
   this.name = name;
@@ -84,17 +79,79 @@ userChoosesButton3.addEventListener('click', function (e) {
 
 
 //*************attempt at randomization***********ignoreplz***
-function pickNewImages() {
-  randomImage1 = AllImages[Math.floor(Math.random() * AllImages.length)];
-  firstPicture.src = randomImage1.url;
-  if(userNumberOfVotes === 0){
-    randomImage1 = AllImages.all[Math.floor(Math.random() * AllImages.length)];
-    
-  }
 
-  randomImage2 = AllImages[Math.floor(Math.random() * AllImages.length)];
-  secondPicture.src = randomImage2.url;
 
-  randomImage3 = AllImages[Math.floor(Math.random() * AllImages.length)];
-  thirdPicture.src = randomImage3.url;
+var productLeft = document.getElementById('firstImage');
+var productCenter = document.getElementById('secondImage');
+var productRight = document.getElementById('thirdImage');
+
+function randomNumber() {
+  var number = Math.floor(Math.random() * AllImages.all.length);
+  return number;
 }
+
+var randomNumLeft, randomNumCenter, randomNumRight;
+
+function randomImage(){
+
+  randomNumLeft = randomNumber();
+  randomNumCenter = randomNumber();
+  randomNumRight = randomNumber();
+
+  while (randomNumLeft === randomNumCenter){
+    randomNumLeft = randomNumber();
+  }
+  while (randomNumLeft === randomNumRight || randomNumCenter === randomNumRight){
+    randomNumRight = randomNumber();
+  }
+  productLeft.src = AllImages.all[randomNumLeft].filePath;
+  productCenter.src = AllImages.all[randomNumCenter].filePath;
+  productRight.src = AllImages.all[randomNumRight].filePath;
+  AllImages.all[randomNumLeft].numOfTimesDisplayed++;
+  AllImages.all[randomNumCenter].numOfTimesDisplayed++;
+  AllImages.all[randomNumRight].numOfTimesDisplayed++;
+  console.log(randomNumLeft, randomNumCenter, randomNumRight);
+}
+
+var clicks = 0;
+function handleProductClick (){
+  clicks++;
+  if (clicks <= 25){
+    AllImages.all[randomNumLeft].numOfClicks++;
+    AllImages.all[randomNumCenter].numOfClicks++;
+    AllImages.all[randomNumRight].numOfClicks++;
+    randomImage();
+    // console.log(clicks);
+  } else {
+    productLeft.removeEventListener('click', handleProductClick);
+    productCenter.removeEventListener('click', handleProductClick);
+    productRight.removeEventListener('click', handleProductClick);
+    var resultsBox = document.getElementById('testResults');
+    var resultsList = document.createElement('ul');
+    for (var i =0; i < AllImages.all.length; i++){
+      var productResult = document.createElement('li');
+      var result = AllImages.all[i];
+      productResult.textContent = result.numOfClicks + ' vote(s) for the ' + result.productName;
+      resultsList.appendChild(productResult);
+    }
+    resultsBox.appendChild(resultsList);
+    resultsBox.style.display = 'block';
+    var productsBox = document.getElementById('productsBox');
+    productsBox.style.display = 'none';
+    var instructions = document.getElementById('instructions');
+    instructions.style.display = 'none';
+  }
+}
+
+productLeft.addEventListener('click', handleProductClick);
+productCenter.addEventListener('click', handleProductClick);
+productRight.addEventListener('click', handleProductClick);
+
+AllImages();
+
+
+
+
+
+
+
