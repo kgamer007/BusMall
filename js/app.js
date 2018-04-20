@@ -4,7 +4,7 @@ console.log('js is linked');
 AllImages.all = [];
 
 
-
+var clicks = 0;
 
 var userChoosesButton1 = document.getElementById('user-choice-1');
 var userChoosesButton2 = document.getElementById('user-choice-2');
@@ -18,7 +18,7 @@ function AllImages(url, name) {
   this.url = url;
   this.name = name;
   this.votes = 0;
-  this.numOfTimesDisplayed =
+  this.numOfTimesDisplayed = 0;
   AllImages.all.push(this);
 }
 new AllImages('img/bag.jpg', 'bag');
@@ -43,6 +43,7 @@ new AllImages('img/water-can.jpg', 'water-can');
 new AllImages('img/wine-glass.jpg', 'wine-glass');
 
 function randomImages() {
+  clicks++;
   var index1 = Math.floor(Math.random() * AllImages.all.length);
   var index2 = Math.floor(Math.random() * AllImages.all.length);
   var index3 = Math.floor(Math.random() * AllImages.all.length);
@@ -50,6 +51,10 @@ function randomImages() {
   var randomImage1 = AllImages.all[index1];
   var randomImage2 = AllImages.all[index2];
   var randomImage3 = AllImages.all[index3];
+
+  randomImage1.numOfTimesDisplayed++;
+  randomImage2.numOfTimesDisplayed++;
+  randomImage3.numOfTimesDisplayed++;
 
   firstPicture.src = randomImage1.url;
   secondPicture.src = randomImage2.url;
@@ -64,75 +69,39 @@ var randomImage3 = AllImages.all[2];
 
 userChoosesButton1.addEventListener('click', function (e) {
   randomImage1.votes++;
-  randomImages();
+  checkIfDone();
 });
 
 userChoosesButton2.addEventListener('click', function (e) {
   randomImage2.votes++;
-  randomImages();
+  checkIfDone();
 });
 
-userChoosesButton3.addEventListener('click', function (e) {
+userChoosesButton3.addEventListener('click', handleClick);
+
+function handleClick (e) {
+  var buttonClicked = e.target.id
+  console.log(buttonClicked)
   randomImage3.votes++;
-  randomImages();
+  checkIfDone();
   // console.log(userChoosesButton1);
-});
-
-
-//*************attempt at randomization***********ignoreplz***
-
-
-var productLeft = document.getElementById('firstImage');
-var productCenter = document.getElementById('secondImage');
-var productRight = document.getElementById('thirdImage');
-
-function randomNumber() {
-  var number = Math.floor(Math.random() * AllImages.all.length);
-  return number;
 }
 
-var randomNumLeft, randomNumCenter, randomNumRight;
 
-function randomImage(){
-
-  randomNumLeft = randomNumber();
-  randomNumCenter = randomNumber();
-  randomNumRight = randomNumber();
-
-  while (randomNumLeft === randomNumCenter){
-    randomNumLeft = randomNumber();
+function checkIfDone() {
+  if (clicks <= 5) {
+    randomImages();
   }
-  while (randomNumLeft === randomNumRight || randomNumCenter === randomNumRight){
-    randomNumRight = randomNumber();
-  }
-  productLeft.src = AllImages.all[randomNumLeft].filePath;
-  productCenter.src = AllImages.all[randomNumCenter].filePath;
-  productRight.src = AllImages.all[randomNumRight].filePath;
-  AllImages.all[randomNumLeft].numOfTimesDisplayed++;
-  AllImages.all[randomNumCenter].numOfTimesDisplayed++;
-  AllImages.all[randomNumRight].numOfTimesDisplayed++;
-  console.log(randomNumLeft, randomNumCenter, randomNumRight);
-}
-
-var clicks = 0;
-function handleProductClick (){
-  clicks++;
-  if (clicks <= 25){
-    AllImages.all[randomNumLeft].numOfClicks++;
-    AllImages.all[randomNumCenter].numOfClicks++;
-    AllImages.all[randomNumRight].numOfClicks++;
-    randomImage();
-    // console.log(clicks);
-  } else {
-    productLeft.removeEventListener('click', handleProductClick);
-    productCenter.removeEventListener('click', handleProductClick);
-    productRight.removeEventListener('click', handleProductClick);
+  else {
+    userChoosesButton1.removeEventListener('click');
+    userChoosesButton2.removeEventListener('click');
+    userChoosesButton3.removeEventListener('click');
     var resultsBox = document.getElementById('testResults');
     var resultsList = document.createElement('ul');
-    for (var i =0; i < AllImages.all.length; i++){
+    for (var i = 0; i < AllImages.all.length; i++) {
       var productResult = document.createElement('li');
       var result = AllImages.all[i];
-      productResult.textContent = result.numOfClicks + ' vote(s) for the ' + result.productName;
+      productResult.textContent = result.votes + ' vote(s) for the ' + result.name;
       resultsList.appendChild(productResult);
     }
     resultsBox.appendChild(resultsList);
@@ -143,16 +112,4 @@ function handleProductClick (){
     instructions.style.display = 'none';
   }
 }
-
-productLeft.addEventListener('click', handleProductClick);
-productCenter.addEventListener('click', handleProductClick);
-productRight.addEventListener('click', handleProductClick);
-
-AllImages();
-
-
-
-
-
-
-
+//checkIfDone();
