@@ -3,16 +3,15 @@ console.log('js is linked');
 
 AllImages.all = [];
 
-
 var clicks = 0;
-
-var userChoosesButton1 = document.getElementById('user-choice-1');
-var userChoosesButton2 = document.getElementById('user-choice-2');
-var userChoosesButton3 = document.getElementById('user-choice-3');
 
 var firstPicture = document.getElementById('firstImage');
 var secondPicture = document.getElementById('secondImage');
 var thirdPicture = document.getElementById('thirdImage');
+
+firstPicture.setAttribute('class', 'bag');
+secondPicture.setAttribute('class', 'banana');
+thirdPicture.setAttribute('class', 'bathroom');
 
 function AllImages(url, name) {
   this.url = url;
@@ -21,6 +20,9 @@ function AllImages(url, name) {
   this.numOfTimesDisplayed = 0;
   AllImages.all.push(this);
 }
+
+// when something happens, do this:
+
 new AllImages('img/bag.jpg', 'bag');
 new AllImages('img/banana.jpg', 'banana');
 new AllImages('img/bathroom.jpg', 'bathroom');
@@ -42,7 +44,7 @@ new AllImages('img/usb.gif', 'usb');
 new AllImages('img/water-can.jpg', 'water-can');
 new AllImages('img/wine-glass.jpg', 'wine-glass');
 
-function randomImages() {
+function putNewSetOfImagesOnPage() {
   clicks++;
   var index1 = Math.floor(Math.random() * AllImages.all.length);
   var index2 = Math.floor(Math.random() * AllImages.all.length);
@@ -56,46 +58,68 @@ function randomImages() {
   randomImage2.numOfTimesDisplayed++;
   randomImage3.numOfTimesDisplayed++;
 
+
+  firstPicture.setAttribute('class', randomImage1.name);
+  secondPicture.setAttribute('class', randomImage2.name);
+  thirdPicture.setAttribute('class', randomImage3.name);
   firstPicture.src = randomImage1.url;
   secondPicture.src = randomImage2.url;
   thirdPicture.src = randomImage3.url;
 }
-randomImages();
-//confused but basically we hard code the index and randomize them later
-var randomImage1 = AllImages.all[0];
-var randomImage2 = AllImages.all[1];
-var randomImage3 = AllImages.all[2];
 
+putNewSetOfImagesOnPage();
 
-userChoosesButton1.addEventListener('click', function (e) {
-  randomImage1.votes++;
+function clickHandler1(e) {
+  var clickedImageProductName = firstPicture.getAttribute('class');
+  console.log(clickedImageProductName); // ex. "dragon"
+
+  // do some work here to find relevant AllImages.all array entry, and increment votes for it
+  for (var i = 0; i < AllImages.all.length; i++) {
+    var productAtIndexI = AllImages.all[i]; // { votes: 1, name: "bag", etc.}
+    if(productAtIndexI.name === clickedImageProductName) {
+      productAtIndexI.votes++;
+    }
+  }
   checkIfDone();
-});
+}
 
-userChoosesButton2.addEventListener('click', function (e) {
-  randomImage2.votes++;
+function clickHandler2(e) {
+  var clickedImage2ProductName = secondPicture.getAttribute('class');
+  console.log(clickedImage2ProductName);
+
+  for (var i = 0; i < AllImages.all.length; i++) {
+    var productAtIndexI = AllImages.all[i]; // { votes: 1, name: "bag", etc.}
+    if(productAtIndexI.name === clickedImage2ProductName) {
+      productAtIndexI.votes++;
+    }
+  }
   checkIfDone();
-});
+}
 
-userChoosesButton3.addEventListener('click', handleClick);
+function clickHandler3(e) {
+  var clickedImage3ProductName = thirdPicture.getAttribute('class');
+  console.log(clickedImage3ProductName);
+  for (var i = 0; i < AllImages.all.length; i++) {
+    var productAtIndexI = AllImages.all[i]; // { votes: 1, name: "bag", etc.}
+    if(productAtIndexI.name === clickedImage3ProductName) {
+      productAtIndexI.votes++;
+    }
+  }
 
-function handleClick (e) {
-  var buttonClicked = e.target.id
-  console.log(buttonClicked)
-  randomImage3.votes++;
   checkIfDone();
-  // console.log(userChoosesButton1);
 }
 
 
+firstPicture.addEventListener('click', clickHandler1);
+
+secondPicture.addEventListener('click', clickHandler2);
+
+thirdPicture.addEventListener('click', clickHandler3);
+
 function checkIfDone() {
-  if (clicks <= 5) {
-    randomImages();
-  }
-  else {
-    userChoosesButton1.removeEventListener('click');
-    userChoosesButton2.removeEventListener('click');
-    userChoosesButton3.removeEventListener('click');
+  if (clicks <= 25) {
+    putNewSetOfImagesOnPage();
+  } else {
     var resultsBox = document.getElementById('testResults');
     var resultsList = document.createElement('ul');
     for (var i = 0; i < AllImages.all.length; i++) {
@@ -106,10 +130,11 @@ function checkIfDone() {
     }
     resultsBox.appendChild(resultsList);
     resultsBox.style.display = 'block';
-    var productsBox = document.getElementById('productsBox');
+    var productsBox = document.getElementById('products-area');
     productsBox.style.display = 'none';
     var instructions = document.getElementById('instructions');
     instructions.style.display = 'none';
   }
+
 }
 //checkIfDone();
