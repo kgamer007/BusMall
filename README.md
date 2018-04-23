@@ -8,3 +8,6 @@ Pulling up Monday's assignment and attempt to finish and catch up to Tuesday's w
 
 4/18/2018 1:00am
 still working on Monday's assignment. 
+
+4/22/2018 6:40pm
+added chart.js

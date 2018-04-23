@@ -138,3 +138,31 @@ function checkIfDone() {
 
 }
 //checkIfDone();
+AllImages.all.renderChart = function () {
+  var ctx = document.getElementById('resultsChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: AllImages.all.name,
+      datasets: [{
+        label: 'Votes per product',
+        data: AllImages.all.votes,
+        hoverBackgroundCOlor: 'black'
+      }]
+    }
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      },
+      title: {
+        display: true,
+        text: 'Reuslts'
+      }
+    }
+  });
+};
